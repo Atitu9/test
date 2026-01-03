@@ -12,7 +12,7 @@ public class Product {
         this.price = price;
         this.stockQuantity = stockQuantity;
         this.available = available;
-    }
+    } ///
     public Product() {
         this.productId = 0;
         this.name = "Unknown Product";
