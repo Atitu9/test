@@ -2,31 +2,30 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    private static ArrayList<Staff> allStaff = new ArrayList<>();
+    private static ArrayList<Product> allProducts = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        allStaff.add(new Staff(1001, "Aibek", 400000, 5));
-        allStaff.add(new Chef(2001, "Murat", 600000, 12, "Kazakh Cuisine"));
-        allStaff.add(new Waiter(3001, "Dana", 300000, 4, 95));
+        // Добавим тестовые данные
+        allProducts.add(new Product(1, "Rice", 1500, 50));
+        allProducts.add(new FreshProduct(2, "Milk", 800, 20, 5));
+        allProducts.add(new PackagedProduct(3, "Pasta", 1200, 30, "Plastic"));
 
         boolean running = true;
-
         while (running) {
             displayMenu();
             int choice = scanner.nextInt();
-            scanner.nextLine();
-
+            scanner.nextLine(); // consume newline
             switch (choice) {
-                case 1 -> addStaff();
-                case 2 -> addChef();
-                case 3 -> addWaiter();
-                case 4 -> viewAllStaff();
-                case 5 -> demonstratePolymorphism();
-                case 6 -> viewChefsOnly();
-                case 7 -> viewWaitersOnly();
-                case 0 -> running = false;
-                default -> System.out.println("Invalid choice!");
+                case 1: addProduct(); break;
+                case 2: addFreshProduct(); break;
+                case 3: addPackagedProduct(); break;
+                case 4: viewAllProducts(); break;
+                case 5: demonstratePolymorphism(); break;
+                case 6: viewFreshProducts(); break;
+                case 7: viewPackagedProducts(); break;
+                case 0: running = false; break;
+                default: System.out.println("Invalid choice!"); break;
             }
             if (running) {
                 System.out.println("\nPress Enter to continue...");
@@ -34,120 +33,102 @@ public class Main {
             }
         }
         scanner.close();
-        System.out.println("Program finished.");
     }
+
     private static void displayMenu() {
         System.out.println("\n========================================");
-        System.out.println(" RESTAURANT MANAGEMENT SYSTEM");
+        System.out.println(" GROCERY STORE SYSTEM");
         System.out.println("========================================");
-        System.out.println("1. Add Staff Member (General)");
-        System.out.println("2. Add Chef");
-        System.out.println("3. Add Waiter");
-        System.out.println("4. View All Staff (Polymorphic)");
-        System.out.println("5. Make All Staff Work");
-        System.out.println("6. View Chefs Only");
-        System.out.println("7. View Waiters Only");
+        System.out.println("1. Add Product (General)");
+        System.out.println("2. Add Fresh Product");
+        System.out.println("3. Add Packaged Product");
+        System.out.println("4. View All Products");
+        System.out.println("5. Demonstrate Polymorphism");
+        System.out.println("6. View Fresh Products Only");
+        System.out.println("7. View Packaged Products Only");
         System.out.println("0. Exit");
         System.out.print("Enter your choice: ");
     }
-    private static void addStaff() {
-        System.out.print("ID: ");
-        int id = scanner.nextInt(); scanner.nextLine();
 
-        System.out.print("Name: ");
-        String name = scanner.nextLine();
-
-        System.out.print("Salary: ");
-        double salary = scanner.nextDouble(); scanner.nextLine();
-
-        System.out.print("Experience years: ");
-        int exp = scanner.nextInt(); scanner.nextLine();
-
-        allStaff.add(new Staff(id, name, salary, exp));
-        System.out.println("Staff added.");
+    // Методы добавления продуктов
+    private static void addProduct() {
+        System.out.println("\n--- ADD PRODUCT ---");
+        System.out.print("Enter ID: "); int id = scanner.nextInt(); scanner.nextLine();
+        System.out.print("Enter name: "); String name = scanner.nextLine();
+        System.out.print("Enter price: "); double price = scanner.nextDouble(); scanner.nextLine();
+        System.out.print("Enter quantity: "); int quantity = scanner.nextInt(); scanner.nextLine();
+        allProducts.add(new Product(id, name, price, quantity));
+        System.out.println("Product added successfully!");
     }
-    private static void addChef() {
-        System.out.print("ID: ");
-        int id = scanner.nextInt(); scanner.nextLine();
 
-        System.out.print("Name: ");
-        String name = scanner.nextLine();
-
-        System.out.print("Salary: ");
-        double salary = scanner.nextDouble(); scanner.nextLine();
-
-        System.out.print("Experience years: ");
-        int exp = scanner.nextInt(); scanner.nextLine();
-
-        System.out.print("Specialization: ");
-        String spec = scanner.nextLine();
-
-        Staff staff = new Chef(id, name, salary, exp, spec);
-        allStaff.add(staff);
-        System.out.println("Chef added.");
+    private static void addFreshProduct() {
+        System.out.println("\n--- ADD FRESH PRODUCT ---");
+        System.out.print("Enter ID: "); int id = scanner.nextInt(); scanner.nextLine();
+        System.out.print("Enter name: "); String name = scanner.nextLine();
+        System.out.print("Enter price: "); double price = scanner.nextDouble(); scanner.nextLine();
+        System.out.print("Enter quantity: "); int quantity = scanner.nextInt(); scanner.nextLine();
+        System.out.print("Enter shelf life (days): "); int shelfLife = scanner.nextInt(); scanner.nextLine();
+        allProducts.add(new FreshProduct(id, name, price, quantity, shelfLife));
+        System.out.println("Fresh product added successfully!");
     }
-    private static void addWaiter() {
-        System.out.print("ID: ");
-        int id = scanner.nextInt(); scanner.nextLine();
 
-        System.out.print("Name: ");
-        String name = scanner.nextLine();
-
-        System.out.print("Salary: ");
-        double salary = scanner.nextDouble(); scanner.nextLine();
-
-        System.out.print("Experience years: ");
-        int exp = scanner.nextInt(); scanner.nextLine();
-
-        System.out.print("Tables served: ");
-        int tables = scanner.nextInt(); scanner.nextLine();
-
-        Staff staff = new Waiter(id, name, salary, exp, tables);
-        allStaff.add(staff);
-        System.out.println("Waiter added.");
+    private static void addPackagedProduct() {
+        System.out.println("\n--- ADD PACKAGED PRODUCT ---");
+        System.out.print("Enter ID: "); int id = scanner.nextInt(); scanner.nextLine();
+        System.out.print("Enter name: "); String name = scanner.nextLine();
+        System.out.print("Enter price: "); double price = scanner.nextDouble(); scanner.nextLine();
+        System.out.print("Enter quantity: "); int quantity = scanner.nextInt(); scanner.nextLine();
+        System.out.print("Enter packaging type: "); String packaging = scanner.nextLine();
+        allProducts.add(new PackagedProduct(id, name, price, quantity, packaging));
+        System.out.println("Packaged product added successfully!");
     }
-    private static void viewAllStaff() {
-        System.out.println("\nALL STAFF:");
-        for (Staff s : allStaff) {
-            System.out.println(s);
 
-            if (s instanceof Chef) {
-                Chef c = (Chef) s;
-                if (c.isMasterChef()) {
-                    System.out.println(" Master Chef");
-                }
-            } else if (s instanceof Waiter) {
-                Waiter w = (Waiter) s;
-                if (w.isTopWaiter()) {
-                    System.out.println(" Top Waiter");
-                }
-            }
+    // Просмотр всех продуктов (полиморфно)
+    private static void viewAllProducts() {
+        System.out.println("\n========================================");
+        System.out.println(" ALL PRODUCTS (POLYMORPHIC LIST)");
+        System.out.println("========================================");
+        if (allProducts.isEmpty()) {
+            System.out.println("No products found.");
+            return;
+        }
+        for (Product p : allProducts) {
+            p.displayInfo();
         }
     }
+
     private static void demonstratePolymorphism() {
-        System.out.println("\nPOLYMORPHISM DEMONSTRATION:");
-        for (Staff s : allStaff) {
-            s.work(); // SAME method, DIFFERENT behavior
+        System.out.println("\n--- POLYMORPHISM DEMO ---");
+        for (Product p : allProducts) {
+            p.displayInfo(); // один метод, разные реализации!
         }
     }
-    private static void viewChefsOnly() {
-        System.out.println("\nCHEFS:");
-        for (Staff s : allStaff) {
-            if (s instanceof Chef) {
-                Chef c = (Chef) s;
-                System.out.println(c.getName() +
-                        " | " + c.getSpecialization());
+
+    private static void viewFreshProducts() {
+        System.out.println("\n--- FRESH PRODUCTS ---");
+        int count = 0;
+        for (Product p : allProducts) {
+            if (p instanceof FreshProduct) {
+                count++;
+                FreshProduct fp = (FreshProduct) p;
+                System.out.println(count + ". " + fp);
+                if (fp.isExpiringSoon()) System.out.println(" Expiring soon!");
             }
         }
+        if (count == 0) System.out.println("No fresh products found.");
     }
-    private static void viewWaitersOnly() {
-        System.out.println("\nWAITERS:");
-        for (Staff s : allStaff) {
-            if (s instanceof Waiter) {
-                Waiter w = (Waiter) s;
-                System.out.println(w.getName() +
-                        " | Tables: " + w.getTablesServed());
+
+    private static void viewPackagedProducts() {
+        System.out.println("\n--- PACKAGED PRODUCTS ---");
+        int count = 0;
+        for (Product p : allProducts) {
+            if (p instanceof PackagedProduct) {
+                count++;
+                PackagedProduct pp = (PackagedProduct) p;
+                System.out.println(count + ". " + pp);
+                if (pp.isEcoFriendly()) System.out.println(" Eco-friendly!");
             }
         }
+        if (count == 0) System.out.println("No packaged products found.");
     }
 }
