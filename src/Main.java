@@ -34,7 +34,6 @@ public class Main {
         }
         scanner.close();
     }
-
     private static void displayMenu() {
         System.out.println("\n========================================");
         System.out.println(" GROCERY STORE SYSTEM");
@@ -60,7 +59,6 @@ public class Main {
         allProducts.add(new Product(id, name, price, quantity));
         System.out.println("Product added successfully!");
     }
-
     private static void addFreshProduct() {
         System.out.println("\n--- ADD FRESH PRODUCT ---");
         System.out.print("Enter ID: "); int id = scanner.nextInt(); scanner.nextLine();
@@ -71,7 +69,6 @@ public class Main {
         allProducts.add(new FreshProduct(id, name, price, quantity, shelfLife));
         System.out.println("Fresh product added successfully!");
     }
-
     private static void addPackagedProduct() {
         System.out.println("\n--- ADD PACKAGED PRODUCT ---");
         System.out.print("Enter ID: "); int id = scanner.nextInt(); scanner.nextLine();
@@ -96,14 +93,12 @@ public class Main {
             p.displayInfo();
         }
     }
-
     private static void demonstratePolymorphism() {
         System.out.println("\n--- POLYMORPHISM DEMO ---");
         for (Product p : allProducts) {
             p.displayInfo(); // один метод, разные реализации!
         }
     }
-
     private static void viewFreshProducts() {
         System.out.println("\n--- FRESH PRODUCTS ---");
         int count = 0;
@@ -117,7 +112,6 @@ public class Main {
         }
         if (count == 0) System.out.println("No fresh products found.");
     }
-
     private static void viewPackagedProducts() {
         System.out.println("\n--- PACKAGED PRODUCTS ---");
         int count = 0;
