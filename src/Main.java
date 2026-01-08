@@ -6,7 +6,7 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        // Добавим тестовые данные
+
         allProducts.add(new Product(1, "Rice", 1500, 50));
         allProducts.add(new FreshProduct(2, "Milk", 800, 20, 5));
         allProducts.add(new PackagedProduct(3, "Pasta", 1200, 30, "Plastic"));
@@ -15,7 +15,7 @@ public class Main {
         while (running) {
             displayMenu();
             int choice = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            scanner.nextLine();
             switch (choice) {
                 case 1: addProduct(); break;
                 case 2: addFreshProduct(); break;
@@ -49,7 +49,6 @@ public class Main {
         System.out.print("Enter your choice: ");
     }
 
-    // Методы добавления продуктов
     private static void addProduct() {
         System.out.println("\n--- ADD PRODUCT ---");
         System.out.print("Enter ID: "); int id = scanner.nextInt(); scanner.nextLine();
@@ -80,7 +79,6 @@ public class Main {
         System.out.println("Packaged product added successfully!");
     }
 
-    // Просмотр всех продуктов (полиморфно)
     private static void viewAllProducts() {
         System.out.println("\n========================================");
         System.out.println(" ALL PRODUCTS (POLYMORPHIC LIST)");
@@ -96,7 +94,7 @@ public class Main {
     private static void demonstratePolymorphism() {
         System.out.println("\n--- POLYMORPHISM DEMO ---");
         for (Product p : allProducts) {
-            p.displayInfo(); // один метод, разные реализации!
+            p.displayInfo();
         }
     }
     private static void viewFreshProducts() {

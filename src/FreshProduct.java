@@ -1,8 +1,7 @@
 public class FreshProduct extends Product {
-    private int shelfLifeDays; // срок годности в днях
-
+    private int shelfLifeDays;
     public FreshProduct(int productId, String name, double price, int quantity, int shelfLifeDays) {
-        super(productId, name, price, quantity); // Вызов конструктора родителя
+        super(productId, name, price, quantity);
         setShelfLifeDays(shelfLifeDays);
     }
     public int getShelfLifeDays() { return shelfLifeDays; }
