@@ -7,8 +7,8 @@ public class Product {
     public Product(int productId, String name, double price, int quantity) {
         this.productId = productId;
         this.name = name;
-        setPrice(price);       // Используем сеттер с валидацией
-        setQuantity(quantity); // Валидация
+        setPrice(price);
+        setQuantity(quantity);
         this.name = name != null && !name.trim().isEmpty() ? name : "Unknown";
     }
     public int getProductId() { return productId; }
