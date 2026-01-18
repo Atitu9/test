@@ -15,6 +15,6 @@ public class FreshProduct extends Product {
                 " | Shelf life: " + shelfLifeDays + " days");
     }
     public boolean isExpiringSoon() {
-        return shelfLifeDays <= 3;
+        return shelfLifeDays<= 3;
     }
 }

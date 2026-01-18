@@ -8,7 +8,6 @@ public class Sale {
         this.customer = customer;
         this.quantity = quantity;
     }
-
     public void completeSale() {
         double totalPrice = product.getPrice() * quantity;
 
@@ -16,12 +15,10 @@ public class Sale {
             System.out.println("Not enough balance!");
             return;
         }
-
         if (product.getQuantity() < quantity) {
             System.out.println("Not enough product in stock!");
             return;
         }
-
         customer.pay(totalPrice);
         product.setQuantity(product.getQuantity() - quantity);
 

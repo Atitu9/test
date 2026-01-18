@@ -11,7 +11,7 @@ public class Product {
         setQuantity(quantity);
         this.name = name != null && !name.trim().isEmpty() ? name : "Unknown";
     }
-    public int getProductId() { return productId; }
+    public int getProductId() { return productId;}
     public String getName() { return name; }
     public double getPrice() { return price; }
     public int getQuantity() { return quantity; }
