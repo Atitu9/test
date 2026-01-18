@@ -15,6 +15,7 @@ public class Sale {
             System.out.println("Not enough balance!");
             return;
         }
+
         if (product.getQuantity() < quantity) {
             System.out.println("Not enough product in stock!");
             return;

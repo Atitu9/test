@@ -43,7 +43,7 @@ public class Main {
         System.out.println("3. Add Packaged Product");
         System.out.println("4. View All Products");
         System.out.println("5. Demonstrate Polymorphism");
-        System.out.println("6. View Fresh Products Only");
+        System.out.println("6. View Fresh Products Only ");
         System.out.println("7. View Packaged Products Only");
         System.out.println("0. Exit");
         System.out.print("Enter your choice: ");

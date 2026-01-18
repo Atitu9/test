@@ -7,7 +7,7 @@ public class PackagedProduct extends Product {
     }
     public String getPackagingType() { return packagingType; }
     public void setPackagingType(String packagingType) {
-        if (packagingType != null && !packagingType.trim().isEmpty()) this.packagingType= packagingType;
+        if (packagingType != null && !packagingType.trim().isEmpty()) this.packagingType = packagingType;
     }
     @Override
     public void displayInfo() {

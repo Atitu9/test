@@ -14,6 +14,7 @@ public class FreshProduct extends Product {
         System.out.println("Fresh Product: " + name + " | Price: " + price + " KZT | Quantity: " + quantity +
                 " | Shelf life: " + shelfLifeDays + " days");
     }
+
     public boolean isExpiringSoon() {
         return shelfLifeDays<= 3;
     }
