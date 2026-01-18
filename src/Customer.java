@@ -8,7 +8,6 @@ public class Customer {
         this.name = name;
         this.balance = balance >= 0 ? balance : 0;
     }
-
     public boolean canPay(double amount) {
         return balance >= amount;
     }
