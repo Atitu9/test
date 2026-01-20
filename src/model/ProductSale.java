@@ -9,6 +9,6 @@ public class ProductSale implements Sellable {
     @Override
     public void sell(Customer customer, int quantity) {
         Sale sale = new Sale(product, customer, quantity);
-        sale.completeSale(); // выбрасывает исключения при ошибке
+        sale.completeSale();
     }
 }

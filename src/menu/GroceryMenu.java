@@ -1,6 +1,6 @@
 package menu;
 
-import model.*; // подключаем все классы из model
+import model.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,13 +9,11 @@ public class GroceryMenu implements Menu {
     private ArrayList<Product> allProducts = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
 
-    // Конструктор с тестовыми продуктами
     public GroceryMenu() {
         allProducts.add(new FreshProduct(1, "Milk", 800, 10, 5));
         allProducts.add(new PackagedProduct(2, "Pasta", 1200, 20, "Plastic"));
     }
 
-    // Метод отображения меню
     @Override
     public void displayMenu() {
         System.out.println("\n==== GROCERY STORE SYSTEM ====");
@@ -27,7 +25,6 @@ public class GroceryMenu implements Menu {
         System.out.print("Enter choice: ");
     }
 
-    // Метод запуска меню
     @Override
     public void run() {
         boolean running = true;
@@ -51,7 +48,7 @@ public class GroceryMenu implements Menu {
         }
     }
 
-    // Добавление свежего продукта
+
     private void addFreshProduct() {
         try {
             System.out.print("ID: "); int id = Integer.parseInt(scanner.nextLine());
@@ -68,7 +65,6 @@ public class GroceryMenu implements Menu {
         }
     }
 
-    // Добавление упакованного продукта
     private void addPackagedProduct() {
         try {
             System.out.print("ID: "); int id = Integer.parseInt(scanner.nextLine());
@@ -85,7 +81,6 @@ public class GroceryMenu implements Menu {
         }
     }
 
-    // Просмотр всех продуктов
     private void viewAllProducts() {
         if (allProducts.isEmpty()) {
             System.out.println("No products available.");
@@ -96,7 +91,6 @@ public class GroceryMenu implements Menu {
         }
     }
 
-    // Продажа продукта
     private void sellProduct() {
         try {
             System.out.print("Enter product ID: "); int id = Integer.parseInt(scanner.nextLine());
