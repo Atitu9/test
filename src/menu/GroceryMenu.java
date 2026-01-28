@@ -13,7 +13,6 @@ public class GroceryMenu implements Menu {
         allProducts.add(new FreshProduct(1, "Milk", 800, 10, 5));
         allProducts.add(new PackagedProduct(2, "Pasta", 1200, 20, "Plastic"));
     }
-
     @Override
     public void displayMenu() {
         System.out.println("\n==== GROCERY STORE SYSTEM ====");
@@ -24,7 +23,6 @@ public class GroceryMenu implements Menu {
         System.out.println("0. Exit");
         System.out.print("Enter choice: ");
     }
-
     @Override
     public void run() {
         boolean running = true;
@@ -47,8 +45,6 @@ public class GroceryMenu implements Menu {
             }
         }
     }
-
-
     private void addFreshProduct() {
         try {
             System.out.print("ID: "); int id = Integer.parseInt(scanner.nextLine());
@@ -64,7 +60,6 @@ public class GroceryMenu implements Menu {
             System.out.println("Error: " + e.getMessage());
         }
     }
-
     private void addPackagedProduct() {
         try {
             System.out.print("ID: "); int id = Integer.parseInt(scanner.nextLine());
@@ -80,7 +75,6 @@ public class GroceryMenu implements Menu {
             System.out.println("Error: " + e.getMessage());
         }
     }
-
     private void viewAllProducts() {
         if (allProducts.isEmpty()) {
             System.out.println("No products available.");
@@ -90,8 +84,7 @@ public class GroceryMenu implements Menu {
             p.displayInfo();
         }
     }
-
-    private void sellProduct() {
+    private void sellProduct(){
         try {
             System.out.print("Enter product ID: "); int id = Integer.parseInt(scanner.nextLine());
             Product product = allProducts.stream()
