@@ -14,28 +14,24 @@ public class ProductDAO {
 
         Connection connection = DatabaseConnection.getConnection();
         if (connection == null) return false;
-
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, product.getName());
             statement.setDouble(2, product.getPrice());
             statement.setInt(3, product.getQuantity());
             statement.setInt(4, product.getShelfLifeDays());
-
             int rowsInserted = statement.executeUpdate();
             statement.close();
-
             if (rowsInserted > 0) {
-                System.out.println("✅ Fresh product inserted: " + product.getName());
+                System.out.println(" Fresh product inserted: " + product.getName());
                 return true;
             }
         } catch (SQLException e) {
-            System.out.println("❌ Insert FreshProduct failed!");
+            System.out.println(" Insert FreshProduct failed!");
             e.printStackTrace();
         } finally {
             DatabaseConnection.close(connection);
         }
-
         return false;
     }
     public boolean insertPackagedProduct(PackagedProduct product) {
@@ -51,21 +47,19 @@ public class ProductDAO {
             statement.setDouble(2, product.getPrice());
             statement.setInt(3, product.getQuantity());
             statement.setString(4, product.getPackagingType());
-
             int rowsInserted = statement.executeUpdate();
             statement.close();
 
             if (rowsInserted > 0) {
-                System.out.println("✅ Packaged product inserted: " + product.getName());
+                System.out.println(" Packaged product inserted: " + product.getName());
                 return true;
             }
         } catch (SQLException e) {
-            System.out.println("❌ Insert PackagedProduct failed!");
+            System.out.println(" Insert PackagedProduct failed!");
             e.printStackTrace();
         } finally {
             DatabaseConnection.close(connection);
         }
-
         return false;
     }
     public List<Product> getAllProducts() {
@@ -74,27 +68,22 @@ public class ProductDAO {
 
         Connection connection = DatabaseConnection.getConnection();
         if (connection == null) return products;
-
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
-
             while (resultSet.next()) {
                 Product product = extractProductFromResultSet(resultSet);
                 if (product != null) products.add(product);
             }
-
             resultSet.close();
             statement.close();
-
-            System.out.println("✅ Retrieved " + products.size() + " products from database");
+            System.out.println(" Retrieved " + products.size() + " products from database");
         } catch (SQLException e) {
-            System.out.println("❌ Select all products failed!");
+            System.out.println(" Select all products failed!");
             e.printStackTrace();
         } finally {
             DatabaseConnection.close(connection);
         }
-
         return products;
     }
     public Product getProductById(int productId) {
@@ -102,7 +91,6 @@ public class ProductDAO {
 
         Connection connection = DatabaseConnection.getConnection();
         if (connection == null) return null;
-
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, productId);
@@ -114,14 +102,14 @@ public class ProductDAO {
                 resultSet.close();
                 statement.close();
 
-                if (product != null) System.out.println("✅ Found product with ID: " + productId);
+                if (product != null) System.out.println(" Found product with ID: " + productId);
                 return product;
             }
             resultSet.close();
             statement.close();
-            System.out.println("⚠️ No product found with ID: " + productId);
+            System.out.println(" No product found with ID: " + productId);
         } catch (SQLException e) {
-            System.out.println("❌ Select by ID failed!");
+            System.out.println(" Select by ID failed!");
             e.printStackTrace();
         } finally {
             DatabaseConnection.close(connection);
@@ -134,22 +122,19 @@ public class ProductDAO {
 
         Connection connection = DatabaseConnection.getConnection();
         if (connection == null) return freshProducts;
-
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
-
             while (resultSet.next()) {
                 Product product = extractProductFromResultSet(resultSet);
                 if (product instanceof FreshProduct) freshProducts.add((FreshProduct) product);
             }
-
             resultSet.close();
             statement.close();
 
-            System.out.println("✅ Retrieved " + freshProducts.size() + " fresh products");
+            System.out.println(" Retrieved " + freshProducts.size() + " fresh products");
         } catch (SQLException e) {
-            System.out.println("❌ Select fresh products failed!");
+            System.out.println(" Select fresh products failed!");
             e.printStackTrace();
         } finally {
             DatabaseConnection.close(connection);
@@ -162,22 +147,18 @@ public class ProductDAO {
 
         Connection connection = DatabaseConnection.getConnection();
         if (connection == null) return packagedProducts;
-
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
-
             while (resultSet.next()) {
                 Product product = extractProductFromResultSet(resultSet);
                 if (product instanceof PackagedProduct) packagedProducts.add((PackagedProduct) product);
             }
-
             resultSet.close();
             statement.close();
-
-            System.out.println("✅ Retrieved " + packagedProducts.size() + " packaged products");
+            System.out.println(" Retrieved " + packagedProducts.size() + " packaged products");
         } catch (SQLException e) {
-            System.out.println("❌ Select packaged products failed!");
+            System.out.println(" Select packaged products failed!");
             e.printStackTrace();
         } finally {
             DatabaseConnection.close(connection);
@@ -190,7 +171,6 @@ public class ProductDAO {
 
         Connection connection = DatabaseConnection.getConnection();
         if (connection == null) return false;
-
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, product.getName());
@@ -198,18 +178,16 @@ public class ProductDAO {
             statement.setInt(3, product.getQuantity());
             statement.setInt(4, product.getShelfLifeDays());
             statement.setInt(5, dbProductId);
-
             int rowsUpdated = statement.executeUpdate();
             statement.close();
-
             if (rowsUpdated > 0) {
-                System.out.println("✅ Fresh product updated (ID: " + dbProductId + ")");
+                System.out.println(" Fresh product updated (ID: " + dbProductId + ")");
                 return true;
             } else {
-                System.out.println("⚠️ No product found to update (ID: " + dbProductId + ")");
+                System.out.println(" No product found to update (ID: " + dbProductId + ")");
             }
         } catch (SQLException e) {
-            System.out.println("❌ Update FreshProduct failed!");
+            System.out.println(" Update FreshProduct failed!");
             e.printStackTrace();
         } finally {
             DatabaseConnection.close(connection);
@@ -219,10 +197,8 @@ public class ProductDAO {
     public boolean updatePackagedProduct(PackagedProduct product, int dbProductId) {
         String sql = "UPDATE product SET name = ?, price = ?, quantity = ?, type = 'Packaged', shelf_life_days = NULL, packaging_type = ? " +
                 "WHERE product_id = ?";
-
         Connection connection = DatabaseConnection.getConnection();
         if (connection == null) return false;
-
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, product.getName());
@@ -230,145 +206,116 @@ public class ProductDAO {
             statement.setInt(3, product.getQuantity());
             statement.setString(4, product.getPackagingType());
             statement.setInt(5, dbProductId);
-
             int rowsUpdated = statement.executeUpdate();
             statement.close();
-
             if (rowsUpdated > 0) {
-                System.out.println("✅ Packaged product updated (ID: " + dbProductId + ")");
+                System.out.println(" Packaged product updated (ID: " + dbProductId + ")");
                 return true;
             } else {
-                System.out.println("⚠️ No product found to update (ID: " + dbProductId + ")");
+                System.out.println(" No product found to update (ID: " + dbProductId + ")");
             }
         } catch (SQLException e) {
-            System.out.println("❌ Update PackagedProduct failed!");
+            System.out.println(" Update PackagedProduct failed!");
             e.printStackTrace();
         } finally {
             DatabaseConnection.close(connection);
         }
-
         return false;
     }
     public boolean deleteProduct(int productId) {
         String sql = "DELETE FROM product WHERE product_id = ?";
-
         Connection connection = DatabaseConnection.getConnection();
         if (connection == null) return false;
-
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, productId);
-
             int rowsDeleted = statement.executeUpdate();
             statement.close();
-
             if (rowsDeleted > 0) {
-                System.out.println("✅ Product deleted (ID: " + productId + ")");
+                System.out.println(" Product deleted (ID: " + productId + ")");
                 return true;
             } else {
-                System.out.println("⚠️ No product found with ID: " + productId);
+                System.out.println(" No product found with ID: " + productId);
             }
         } catch (SQLException e) {
-            System.out.println("❌ Delete product failed!");
+            System.out.println(" Delete product failed!");
             e.printStackTrace();
         } finally {
             DatabaseConnection.close(connection);
         }
-
         return false;
     }
     public List<Product> searchByName(String name) {
         List<Product> products = new ArrayList<>();
         String sql = "SELECT * FROM product WHERE name ILIKE ? ORDER BY name";
-
         Connection connection = DatabaseConnection.getConnection();
         if (connection == null) return products;
-
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, "%" + name + "%");
-
             ResultSet resultSet = statement.executeQuery();
-
             while (resultSet.next()) {
                 Product product = extractProductFromResultSet(resultSet);
                 if (product != null) products.add(product);
             }
-
             resultSet.close();
             statement.close();
-
-            System.out.println("✅ Found " + products.size() + " products matching '" + name + "'");
+            System.out.println(" Found " + products.size() + " products matching '" + name + "'");
         } catch (SQLException e) {
-            System.out.println("❌ Search by name failed!");
+            System.out.println(" Search by name failed!");
             e.printStackTrace();
         } finally {
             DatabaseConnection.close(connection);
         }
-
         return products;
     }
     public List<Product> searchByPriceRange(double minPrice, double maxPrice) {
         List<Product> products = new ArrayList<>();
         String sql = "SELECT * FROM product WHERE price BETWEEN ? AND ? ORDER BY price ASC";
-
         Connection connection = DatabaseConnection.getConnection();
         if (connection == null) return products;
-
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setDouble(1, minPrice);
             statement.setDouble(2, maxPrice);
-
             ResultSet resultSet = statement.executeQuery();
-
             while (resultSet.next()) {
                 Product product = extractProductFromResultSet(resultSet);
                 if (product != null) products.add(product);
             }
-
             resultSet.close();
             statement.close();
-
-            System.out.println("✅ Found " + products.size() + " products in price range " + minPrice + " - " + maxPrice);
+            System.out.println(" Found " + products.size() + " products in price range " + minPrice + " - " + maxPrice);
         } catch (SQLException e) {
-            System.out.println("❌ Search by price range failed!");
+            System.out.println(" Search by price range failed!");
             e.printStackTrace();
         } finally {
             DatabaseConnection.close(connection);
         }
-
         return products;
     }
     public List<Product> searchByMinQuantity(int minQuantity) {
         List<Product> products = new ArrayList<>();
         String sql = "SELECT * FROM product WHERE quantity >= ? ORDER BY quantity DESC";
-
         Connection connection = DatabaseConnection.getConnection();
         if (connection == null) return products;
-
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, minQuantity);
-
             ResultSet resultSet = statement.executeQuery();
-
             while (resultSet.next()) {
                 Product product = extractProductFromResultSet(resultSet);
                 if (product != null) products.add(product);
             }
-
             resultSet.close();
             statement.close();
-
-            System.out.println("✅ Found " + products.size() + " products with quantity >= " + minQuantity);
+            System.out.println(" Found " + products.size() + " products with quantity >= " + minQuantity);
         } catch (SQLException e) {
-            System.out.println("❌ Search by quantity failed!");
+            System.out.println(" Search by quantity failed!");
             e.printStackTrace();
         } finally {
             DatabaseConnection.close(connection);
         }
-
         return products;
     }
     private Product extractProductFromResultSet(ResultSet resultSet) throws SQLException {
@@ -377,17 +324,14 @@ public class ProductDAO {
         double price = resultSet.getDouble("price");
         int quantity = resultSet.getInt("quantity");
         String type = resultSet.getString("type");
-
         if ("Fresh".equalsIgnoreCase(type)) {
             int shelf = resultSet.getInt("shelf_life_days");
             return new FreshProduct(id, name, price, quantity, shelf);
         }
-
         if ("Packaged".equalsIgnoreCase(type)) {
             String packaging = resultSet.getString("packaging_type");
             return new PackagedProduct(id, name, price, quantity, packaging == null ? "Unknown" : packaging);
         }
-
         return new PackagedProduct(id, name, price, quantity, "Unknown");
     }
     public void displayAllProducts() {
@@ -396,7 +340,6 @@ public class ProductDAO {
         System.out.println("\n========================================");
         System.out.println("   ALL PRODUCTS FROM DATABASE");
         System.out.println("========================================");
-
         if (products.isEmpty()) {
             System.out.println("No products in database.");
         } else {
@@ -414,7 +357,6 @@ public class ProductDAO {
         System.out.println("\n========================================");
         System.out.println("  POLYMORPHISM: Products from Database");
         System.out.println("========================================");
-
         if (products.isEmpty()) {
             System.out.println("No products to demonstrate.");
         } else {
