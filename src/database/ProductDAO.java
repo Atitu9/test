@@ -40,7 +40,6 @@ public class ProductDAO {
 
         Connection connection = DatabaseConnection.getConnection();
         if (connection == null) return false;
-
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, product.getName());
@@ -49,7 +48,6 @@ public class ProductDAO {
             statement.setString(4, product.getPackagingType());
             int rowsInserted = statement.executeUpdate();
             statement.close();
-
             if (rowsInserted > 0) {
                 System.out.println(" Packaged product inserted: " + product.getName());
                 return true;
