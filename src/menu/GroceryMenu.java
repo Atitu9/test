@@ -31,7 +31,6 @@ public class GroceryMenu implements Menu {
         System.out.println("0. Exit");
         System.out.print("Enter choice: ");
     }
-
     @Override
     public void run() {
         boolean running = true;
@@ -62,7 +61,6 @@ public class GroceryMenu implements Menu {
             }
         }
     }
-
     private void addFreshProductDB() {
         System.out.print("Name: ");
         String name = scanner.nextLine();
@@ -77,7 +75,6 @@ public class GroceryMenu implements Menu {
         boolean ok = dao.insertFreshProduct(product);
         System.out.println(ok ? "Fresh product inserted!" : "Insert failed!");
     }
-
     private void addPackagedProductDB() {
         System.out.print("Name: ");
         String name = scanner.nextLine();
@@ -92,7 +89,6 @@ public class GroceryMenu implements Menu {
         boolean ok = dao.insertPackagedProduct(product);
         System.out.println(ok ? "Packaged product inserted!" : "Insert failed!");
     }
-
     private void viewFreshProductsDB() {
         List<FreshProduct> list = dao.getAllFreshProducts();
         if (list.isEmpty()) {
@@ -104,7 +100,6 @@ public class GroceryMenu implements Menu {
             if (p.isExpiringSoon()) System.out.println(" Expiring soon!");
         }
     }
-
     private void viewPackagedProductsDB() {
         List<PackagedProduct> list = dao.getAllPackagedProducts();
         if (list.isEmpty()) {
@@ -116,7 +111,6 @@ public class GroceryMenu implements Menu {
             if (p.isEcoFriendly()) System.out.println(" Eco-friendly!");
         }
     }
-
     private void updateProductDB() {
         System.out.print("Enter product ID to update: ");
         int id = Integer.parseInt(scanner.nextLine());
@@ -126,7 +120,6 @@ public class GroceryMenu implements Menu {
             System.out.println("No product found with ID: " + id);
             return;
         }
-
         System.out.println("Current Info:");
         System.out.println(existing.toString());
 
@@ -143,7 +136,6 @@ public class GroceryMenu implements Menu {
         int newQty = qtyInput.trim().isEmpty() ? existing.getQuantity() : Integer.parseInt(qtyInput);
 
         boolean ok;
-
         if (existing instanceof FreshProduct fp) {
             System.out.print("New Shelf life days [" + fp.getShelfLifeDays() + "]: ");
             String shelfInput = scanner.nextLine();
@@ -159,15 +151,12 @@ public class GroceryMenu implements Menu {
 
             PackagedProduct updated = new PackagedProduct(id, newName, newPrice, newQty, newPack);
             ok = dao.updatePackagedProduct(updated, id);
-
         } else {
             PackagedProduct updated = new PackagedProduct(id, newName, newPrice, newQty, "Unknown");
             ok = dao.updatePackagedProduct(updated, id);
         }
-
         System.out.println(ok ? "Update successful!" : "Update failed!");
     }
-
     private void deleteProductDB() {
         System.out.print("Enter product ID to delete: ");
         int id = Integer.parseInt(scanner.nextLine());
@@ -177,7 +166,6 @@ public class GroceryMenu implements Menu {
             System.out.println("No product found with ID: " + id);
             return;
         }
-
         System.out.println("Product to delete:");
         System.out.println(existing.toString());
 
@@ -188,11 +176,9 @@ public class GroceryMenu implements Menu {
             System.out.println("Deletion cancelled.");
             return;
         }
-
         boolean ok = dao.deleteProduct(id);
         System.out.println(ok ? "Deleted successfully!" : "Delete failed!");
     }
-
     private void searchByNameDB() {
         System.out.print("Enter name (partial): ");
         String name = scanner.nextLine();
@@ -204,7 +190,6 @@ public class GroceryMenu implements Menu {
         }
         for (Product p : list) p.displayInfo();
     }
-
     private void searchByPriceRangeDB() {
         System.out.print("Min price: ");
         double min = Double.parseDouble(scanner.nextLine());
@@ -218,7 +203,6 @@ public class GroceryMenu implements Menu {
         }
         for (Product p : list) p.displayInfo();
     }
-
     private void searchByMinQuantityDB() {
         System.out.print("Min quantity: ");
         int minQty = Integer.parseInt(scanner.nextLine());
@@ -230,7 +214,6 @@ public class GroceryMenu implements Menu {
         }
         for (Product p : list) p.displayInfo();
     }
-
     private void sellProductDB() {
         System.out.print("Enter product ID: ");
         int id = Integer.parseInt(scanner.nextLine());
@@ -240,7 +223,6 @@ public class GroceryMenu implements Menu {
             System.out.println("Product not found.");
             return;
         }
-
         System.out.println("Product:");
         System.out.println(product.toString());
 
@@ -260,7 +242,6 @@ public class GroceryMenu implements Menu {
 
         customer.pay(totalPrice);
         int newQty = product.getQuantity() - qty;
-
         boolean ok;
         if (product instanceof FreshProduct fp) {
             FreshProduct updated = new FreshProduct(fp.getProductId(), fp.getName(), fp.getPrice(), newQty, fp.getShelfLifeDays());
@@ -272,7 +253,6 @@ public class GroceryMenu implements Menu {
             PackagedProduct updated = new PackagedProduct(product.getProductId(), product.getName(), product.getPrice(), newQty, "Unknown");
             ok = dao.updatePackagedProduct(updated, id);
         }
-
         System.out.println(ok ? "Sale completed! Stock updated in DB." : "Sale failed (DB update failed).");
         System.out.println("Customer remaining balance: " + customer.getBalance());
     }
